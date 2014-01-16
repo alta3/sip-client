@@ -1,49 +1,92 @@
-Instructions as supplied by Belle.  This is a cut and paste, needs tested and editted, converte into a script
-- Install build time dependencies
-	- libtool
-	- intltool
+This is Linphone, a free (GPL) video softphone based on the SIP protocol.
 
-- you need at least:
- 	- belle-sip>=1.0.0
-	- speex>=1.2.0 (including libspeexdsp part)
-	- libxml2
-	
-	+ if you want the gtk/glade interface:
-		- libgtk >=2.16.0
-	+ if you want video support:
-		- libvpx (VP8 codec)
-		- libavcodec (ffmpeg) 
-		- libswscale (part of ffmpeg too) for better scaling performance
-		- libxv (x11 video extension)
-		- ligl1-mesa (OpenGL API -- GLX development files)
-		- libglew (OpenGL Extension Wrangler library)
-		- libv4l (Video for linux)
-		- libx11 (x11)
-		- theora (optional)
-	+ gsm codec (gsm source package or libgsm-dev or gsm-devel) (optional)
-	+ libreadline (optional: for convenient command line in linphonec)
-	+ libsoup (optional: for wizard - account creation assistant)
-	+ libsqlite3 (optional : for a local history of chat messages)
-	+ if you want uPnP support (optional):
-		- libupnp (version 1.6 branch (not patched with 18-url-upnpstrings.patch))
+******************Building linphone ***********************************
 
-	Here is the command line to get these dependencies installed for Ubuntu && Debian 
+# SIP dependencies
+	sudo apt-get install  libosip2-dev libexosip2-dev
 
-	$ sudo apt-get install libtool intltool libgtk2.0-dev libosip2-dev libexosip2-dev libspeexdsp-dev libavcodec-dev libswscale-dev libx11-dev libxv-dev libgl1-mesa-dev libglew1.6-dev libv4l-dev libxml2-dev
+# Install build time dependencies, libtool and intltool
+	sudo apt-get install libtool intltool
 
-	+ for optional library
-	$ sudo apt-get install libreadline-dev libgsm1-dev libtheora-dev libsoup2.4-dev libsqlite3-dev libupnp4-dev
+# belle-sip>=1.0.0 from bele github repository 
+	git://git.linphone.org/belle-sip
 
-	+ Install srtp (optional) for call encryption :
-		$ git clone git://git.linphone.org/srtp.git
- 		$ cd srtp && autoconf && ./configure && make
- 		$ sudo make install
+# speex>=1.2.0 (including libspeexdsp part)
+	sudo apt-get install libspeexdsp-dev
 
-	+ Install zrtpcpp (optional), for unbreakable call encryption
- 		$ sudo apt-get install cmake libssl-dev
- 		$ git clone git://git.linphone.org/zrtpcpp.git
-		$ cd zrtpcpp && cmake -Denable-ccrtp=false . && make
- 		$ sudo make install
+# libxml2
+	sudo apt-get install libxml2-dev
+
+# if you want the gtk/glade interface: libgtk >=2.16.0 (The GUI front end of linphone)
+	sudo apt-get install libgtk2.0-dev
+
+# create the directory to compile linphone
+mkdir ~/linphone
+mkdir ~/linphone/belle_sip
+
+cd ~/linphone
+# BETA Linphone 3.7.0 is available here :
+sudo wget http://download.savannah.gnu.org/releases-noredirect/linphone/unstable/source/linphone-3.6.99-beta.tar.gz
+
+cd  ~/linphone/belle_sip
+# The new Belle-Sip SIP stack.
+sudo wget http://download.savannah.gnu.org/releases-noredirect/linphone/unstable/source/belle-sip-1.2.4.tar.gz
+
+# ==================== if you want video support ============================
+
+ # libvpx (VP8 codec)
+	sudo apt-get install libvpx-dev
+
+ # libavcodec (ffmpeg) 
+	sudo apt-get install libavcodec-dev
+
+ # libswscale (part of ffmpeg too) for better scaling performance
+	sudo apt-get install libswscale-dev
+
+ # libxv (x11 video extension)
+	sudo apt-get install libxv-dev
+
+ # libgl1-mesa (OpenGL API -- GLX development files)
+	sudo apt-get install libgl1-mesa-dev
+
+ # libglew (OpenGL Extension Wrangler library)
+	sudo apt-get install libglew1.6-dev
+
+ # libv4l (Video for linux)
+	sudo apt-get install libv4l-dev
+
+ # libx11 (x11)
+	sudo apt-get install libx11-dev
+
+# =================== OPTIONAL THINGS ======================================
+ # The Theora Video Compression Codec (optional)
+	sudo apt-get install libtheora-dev
+
+ # gsm codec (optional) (gsm source package or libgsm-dev or gsm-devel)
+	sudo apt-get install libgsm1-dev
+
+ # libreadline (optional: for convenient command line in linphonec)
+	sudo apt-get install libreadline-dev
+
+ # libsoup (optional: for wizard - account creation assistant)
+	sudo apt-get install libsoup2.4-dev
+
+ # libsqlite3 (optional : for a local history of chat messages)
+	sudo apt-get install libsqlite3-dev
+
+ # uPnP support (optional) libupnp (version 1.6 branch (not patched with 18-url-upnpstrings.patch))
+	sudo apt-get install libupnp4-dev
+
+# Install srtp (optional) for call encryption :
+	git clone git://git.linphone.org/srtp.git
+ 	cd srtp && autoconf && ./configure && make
+ 	sudo make install
+
+# Install zrtpcpp (optional), for unbreakable call encryption
+ 	sudo apt-get install cmake libssl-dev
+ 	git clone git://git.linphone.org/zrtpcpp.git
+	cd zrtpcpp && cmake -Denable-ccrtp=false . && make
+ 	sudo make install
 
 
 - Compile linphone
